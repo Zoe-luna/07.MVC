@@ -70,11 +70,11 @@ public class ProductController {
 			return "forward:/product/addProduct.jsp";
 		}
 		
-		@RequestMapping(value="getProduct")
+		@RequestMapping(value="getProduct",  method=RequestMethod.GET)
 		public String getProduct(@RequestParam("menu") String menu
 								,@RequestParam("prodNo") int prodNo, Model model, HttpServletResponse response) throws Exception {
 			
-			System.out.println("/product/getProduct");
+			System.out.println("/product/getProduct : GET");
 			
 			Product product = productService.getProduct(prodNo);
 			
@@ -116,20 +116,28 @@ public class ProductController {
 			
 			return "forward:/product/listProduct.jsp";
 		}
+		
+		@RequestMapping( value = "updateProduct" , method=RequestMethod.GET )
+		public String updateProductView( @RequestParam("prodNo") int prodNo , Model model ) throws Exception{
 
-		@RequestMapping(value="updateProduct")
-		public String updateProduct(@ModelAttribute("product") Product product, Model model) throws Exception {
+			System.out.println("/product/updateProduct : GET ");
+			//Business Logic
+			Product product = productService.getProduct(prodNo);
+			// Model °ú View ¿¬°á
+			model.addAttribute("product", product);
+			
+			return "forward:/product/updateProductView.jsp";
+		}
+
+		@RequestMapping(value="updateProduct", method=RequestMethod.POST)
+		public String updateProduct(@ModelAttribute("product") Product product, Model model, HttpSession session) throws Exception {
 			
 			System.out.println("/product/updateProduct");
 			
 			productService.updateProduct(product);
-			
-			Product resultProduct = productService.getProduct(product.getProdNo());
-			
-			model.addAttribute("product", resultProduct);
-			model.addAttribute("menu","manage");
-			
-			return "forward:/product/getProduct.jsp";
+		
+			return "redirect:/product/getProduct?prodNo="+product.getProdNo()+"&menu=manage";
 		}
+	
 	
 }
