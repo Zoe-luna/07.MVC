@@ -134,7 +134,7 @@ function fncGetProductList(currentPage){
 			<td></td>
 			<td align="left">	
 				<c:if test="${ param.menu == 'manage' }">
-					<a href="/product/updateProductView?prodNo=${ product.prodNo }&menu=manage">${ product.prodName }</a>
+					<a href="/product/updateProduct?prodNo=${ product.prodNo }&menu=manage">${ product.prodName }</a>
 				</c:if>
 				<c:if test="${ param.menu == 'search' }">
 					<a href="/product/getProduct?prodNo=${ product.prodNo }&menu=search">${ product.prodName }</a>

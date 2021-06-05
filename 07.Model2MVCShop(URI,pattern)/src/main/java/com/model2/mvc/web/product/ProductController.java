@@ -114,7 +114,7 @@ public class ProductController {
 			model.addAttribute("menu",menu);
 			model.addAttribute("search", search);
 			
-			return "forward:/product/listProduct.jsp";
+				return "forward:/product/listProduct.jsp";
 		}
 		
 		@RequestMapping( value = "updateProduct" , method=RequestMethod.GET )
@@ -132,11 +132,13 @@ public class ProductController {
 		@RequestMapping(value="updateProduct", method=RequestMethod.POST)
 		public String updateProduct(@ModelAttribute("product") Product product, Model model, HttpSession session) throws Exception {
 			
-			System.out.println("/product/updateProduct");
+			System.out.println("/product/updateProduct : POST");
 			
 			productService.updateProduct(product);
 		
-			return "redirect:/product/getProduct?prodNo="+product.getProdNo()+"&menu=manage";
+			// return "redirect:/product/getProduct?prodNo="+product.getProdNo()+"&menu=manage";
+			
+			return "forward:/product/getProduct.jsp";
 		}
 	
 	
